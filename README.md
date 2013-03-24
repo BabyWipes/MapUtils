@@ -11,7 +11,7 @@ This plugin is provided to help with the development of OresomeCraft Battles map
 
 Examples:
 
-/loadworld spaceships -n -e  - Create/load a nullified end world.
+/loadworld spaceships -ne  - Create/load a nullified end world.
 
 /loadworld treehouse -n  - Create/load a nullified normal world.
 
