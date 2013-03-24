@@ -25,26 +25,27 @@ public class Commands implements CommandExecutor {
 	    if (args.length < 1) {
 
 		sender.sendMessage(ChatColor.RED + "Please specify a world name!");
-	    } else if (args.toString().contains(" -n")) {
-		plugin.getServer().createWorld(new WorldCreator(args[0]).generator("NullTerrian"));
+	    } else if (args.length < 2) {
+		
+		plugin.getServer().createWorld(new WorldCreator(args[0]));
+		sender.sendMessage(ChatColor.AQUA + "Created world '" + args[0] + "'!");
+		
+	    } else if (args[1].contains("-n")) {
+		plugin.getServer().createWorld(new WorldCreator(args[0]).generator(new NullChunkGenerator()));
 		sender.sendMessage(ChatColor.AQUA + "Created/loaded world '" + args[0] + "' using the Nullterrain generator!");
 		sender.sendMessage(ChatColor.AQUA + "Warning: Make sure each time you load this world you load it with the -n flag!");
 		
-	    }	else if (args.toString().contains(" -e")) {
+	    }	else if (args[1].contains("-e")) {
 		plugin.getServer().createWorld(new WorldCreator(args[0]).environment(Environment.THE_END));
 		sender.sendMessage(ChatColor.AQUA + "Created/loaded world '" + args[0] + "'!");
 		
-	    } else if (args.toString().contains(" -e") && args.toString().contains(" -n")) {
-		plugin.getServer().createWorld(new WorldCreator(args[0]).environment(Environment.THE_END).generator("NullTerrain"));
+	    } else if (args[1].contains("-") && args[1].contains("e") && args[1].contains("n")) {
+		plugin.getServer().createWorld(new WorldCreator(args[0]).environment(Environment.THE_END).generator(new NullChunkGenerator()));
 		sender.sendMessage(ChatColor.AQUA + "Created/loaded world '" + args[0] + "' using the Nullterrain generator!");
 		sender.sendMessage(ChatColor.AQUA + "Warning: Make sure each time you load this world you load it with the -n flag!");
 			
 		   
-	    } else {
-
-		plugin.getServer().createWorld(new WorldCreator(args[0]));
-		sender.sendMessage(ChatColor.AQUA + "Created world '" + args[0] + "'!");
-	    }
+	    } 
 
 	}
 	

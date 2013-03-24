@@ -9,7 +9,9 @@ import org.bukkit.World;
  * Code forked from NullTerrain.
  * https://github.com/Elizacat/NullTerrain
  */
+
 public class NullChunkGenerator extends ChunkGenerator {
+    
     public byte[] generate(World world, Random random, int cx, int cz) {
 	return new byte[65536];
     }
