@@ -24,7 +24,7 @@ public class Commands implements CommandExecutor {
 
 	    if (args.length < 1) {
 
-		sender.sendMessage(ChatColor.RED + "Please specify a world name!");
+		sender.sendMessage(ChatColor.RED + "Correct usage: /loadworld <WorldName> [Flags]");
 	    } else if (args.length < 2) {
 		
 		plugin.getServer().createWorld(new WorldCreator(args[0]));
@@ -52,7 +52,7 @@ public class Commands implements CommandExecutor {
 	if (cmd.getName().equalsIgnoreCase("unloadworld")) {
 	    if (args.length < 1) {
 		
-		sender.sendMessage(ChatColor.RED + "Please specify a world to unload!");
+		sender.sendMessage(ChatColor.RED + "Correct usage: /unloadworld <WorldName>");
 		
 	    } else if (args[0].equals("world")) {
 		
@@ -73,7 +73,7 @@ public class Commands implements CommandExecutor {
 	if (cmd.getName().equalsIgnoreCase("worldtp")) {
 	    Player p = (Player) sender;
 	    if (args.length < 1) {
-		sender.sendMessage(ChatColor.RED + "Please specify a world to teleport to!");
+		sender.sendMessage(ChatColor.RED + "Correct usage: /worldtp <WorldName>");
 	    } else {
 		p.teleport(Bukkit.getWorld(args[0]).getSpawnLocation());
 	    }
@@ -84,6 +84,7 @@ public class Commands implements CommandExecutor {
 	    World world = Bukkit.getWorld(args[0]);
 	    world.setSpawnLocation((int) p.getLocation().getX(), (int) p.getLocation().getY(), (int) p.getLocation().getZ());
 	}
+	
 	return false;
 
     }
