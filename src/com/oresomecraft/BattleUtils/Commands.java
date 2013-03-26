@@ -85,8 +85,9 @@ public class Commands implements CommandExecutor {
 
 	if (cmd.getName().equalsIgnoreCase("worldsetspawn")) {
 	    Player p = (Player) sender;
-	    World world = Bukkit.getWorld(args[0]);
+	    World world = p.getWorld();
 	    world.setSpawnLocation((int) p.getLocation().getX(), (int) p.getLocation().getY(), (int) p.getLocation().getZ());
+	    sender.sendMessage(ChatColor.AQUA + "Set spawn point for world '" + p.getWorld().getName() + "'");
 	}
 
 	return true;
