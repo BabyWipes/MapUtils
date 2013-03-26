@@ -16,12 +16,12 @@ public class Utility {
 	plugin = pl;
     }
     
-    protected static MinecraftServer getMinecraftServer() {
+    protected MinecraftServer getMinecraftServer() {
 	CraftServer server = (CraftServer) plugin.getServer();
 	return server.getServer();
     }
     
-    public static void forceUnloadWorld(World world) {
+    public void forceUnloadWorld(World world) {
 
 	CraftServer server = (CraftServer) plugin.getServer();
 	CraftWorld craftWorld = (CraftWorld) world;
