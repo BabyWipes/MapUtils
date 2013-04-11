@@ -5,14 +5,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.World.Environment;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.sk89q.minecraft.util.commands.*;
 
-
-public class Commands implements CommandExecutor {
+public class Commands {
 
     BattleUtils plugin;
     Utility utility;
@@ -21,76 +19,93 @@ public class Commands implements CommandExecutor {
 	utility = new Utility(plugin);
     }
 
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    @Command(aliases = {"loadworld"}, 
+	    usage = "/loadworld <WorldName> [Flags]",
+	    desc = "Loads are creates a world.",
+	    flags = "en")
+    @CommandPermissions({"battleutils.loadworld"})
+    public void loadworld(CommandContext args, CommandSender sender) throws CommandException {
 
-	if (cmd.getName().equalsIgnoreCase("loadworld")) {
+	if (args.argsLength() < 1) {
 
-	    if (args.length < 1) {
+	    sender.sendMessage(ChatColor.RED + "Correct usage: /loadworld <WorldName> [Flags]");
+	    
+	} else {
 
-		sender.sendMessage(ChatColor.RED + "Correct usage: /loadworld <WorldName> [Flags]");
-	    } else if (args.length < 2) {
+	    if (args.hasFlag('n')) {
+		plugin.getServer().createWorld(new WorldCreator(args.getString(0)).generator(new NullChunkGenerator()));
+		sender.sendMessage(ChatColor.AQUA + "Created/loaded world '" + args.getString(0) + "' using the Nullterrain generator!");
+		sender.sendMessage(ChatColor.AQUA + "Warning: Make sure each time you load this world you lo�ad it with the -n flag!");
+		System.out.println("MOTHER FUCKR BEBUG FUCKER!!!Z");
 
-		plugin.getServer().createWorld(new WorldCreator(args[0]));
-		sender.sendMessage(ChatColor.AQUA + "Created world '" + args[0] + "'!");
+	    }	else if (args.hasFlag('e')) {
+		plugin.getServer().createWorld(new WorldCreator(args.getString(0)).environment(Environment.THE_END));
+		sender.sendMessage(ChatColor.AQUA + "Created/loaded world '" + args.getString(0) + "'!");
 
-	    } else if (args[1].contains("-n")) {
-		plugin.getServer().createWorld(new WorldCreator(args[0]).generator(new NullChunkGenerator()));
-		sender.sendMessage(ChatColor.AQUA + "Created/loaded world '" + args[0] + "' using the Nullterrain generator!");
+	    } else if (args.hasFlag('e') && args.hasFlag('n')) {
+		plugin.getServer().createWorld(new WorldCreator(args.getString(0)).environment(Environment.THE_END).generator(new NullChunkGenerator()));
+		sender.sendMessage(ChatColor.AQUA + "Created/loaded world '" + args.getString(0) + "' using the Nullterrain generator!");
 		sender.sendMessage(ChatColor.AQUA + "Warning: Make sure each time you load this world you load it with the -n flag!");
 
-	    }	else if (args[1].contains("-e")) {
-		plugin.getServer().createWorld(new WorldCreator(args[0]).environment(Environment.THE_END));
-		sender.sendMessage(ChatColor.AQUA + "Created/loaded world '" + args[0] + "'!");
-
-	    } else if (args[1].contains("-") && args[1].contains("e") && args[1].contains("n")) {
-		plugin.getServer().createWorld(new WorldCreator(args[0]).environment(Environment.THE_END).generator(new NullChunkGenerator()));
-		sender.sendMessage(ChatColor.AQUA + "Created/loaded world '" + args[0] + "' using the Nullterrain generator!");
-		sender.sendMessage(ChatColor.AQUA + "Warning: Make sure each time you load this world you load it with the -n flag!");
-
-
-	    } 
-
-	}
-
-	if (cmd.getName().equalsIgnoreCase("unloadworld")) {
-	    if (args.length < 1) {
-
-		sender.sendMessage(ChatColor.RED + "Correct usage: /unloadworld <WorldName>");
-
-	    } else if (args[0].equals("world")) {
-
-		sender.sendMessage(ChatColor.RED + "You may not unlooad the main world!");
-
 	    } else {
-
-		World world = Bukkit.getWorld(args[0]);
-
-		for (Player p : world.getPlayers()) {
-		    p.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
-		}
-
-		utility.forceUnloadWorld(world);
-		sender.sendMessage(ChatColor.AQUA + "Unloaed world '" + args[0] + "'");
+		plugin.getServer().createWorld(new WorldCreator(args.getString(0)));
+		sender.sendMessage(ChatColor.AQUA + "Created world '" + args.getString(0) + "'!");
 	    }
 	}
+    }
 
-	if (cmd.getName().equalsIgnoreCase("worldtp")) {
-	    Player p = (Player) sender;
-	    if (args.length < 1) {
-		sender.sendMessage(ChatColor.RED + "Correct usage: /worldtp <WorldName>");
-	    } else {
-		p.teleport(Bukkit.getWorld(args[0]).getSpawnLocation());
+    @Command(aliases = {"unloadworld"}, 
+	    usage = "/unloadworld <WorldName>",
+	    desc = "Unloads are creates a world.")
+    @CommandPermissions({"battleutils.unloadworld"})
+    public void unloadworld(CommandContext args, CommandSender sender) throws CommandException {
+
+	if (args.argsLength() < 1) {
+
+	    sender.sendMessage(ChatColor.RED + "Correct usage: /unloadworld <WorldName>");
+
+	} else if (args.getString(0).equals("world")) {
+
+	    sender.sendMessage(ChatColor.RED + "You may not unlooad the main world!");
+
+	} else {
+
+	    World world = Bukkit.getWorld(args.getString(0));
+
+	    for (Player p : world.getPlayers()) {
+		p.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
 	    }
-	}
 
-	if (cmd.getName().equalsIgnoreCase("worldsetspawn")) {
-	    Player p = (Player) sender;
-	    World world = p.getWorld();
-	    world.setSpawnLocation((int) p.getLocation().getX(), (int) p.getLocation().getY(), (int) p.getLocation().getZ());
-	    sender.sendMessage(ChatColor.AQUA + "Set spawn point for world '" + p.getWorld().getName() + "'");
+	    utility.forceUnloadWorld(world);
+	    sender.sendMessage(ChatColor.AQUA + "Unloaed world '" + args.getString(0) + "'");
 	}
-
-	return true;
 
     }
+
+    @Command(aliases = {"worldtp"}, 
+	    usage = "/worldtp <WorldName>",
+	    desc = "Teleports you to a world.")
+    @CommandPermissions({"battleutils.unloadworld"})
+    public void worldtp(CommandContext args, CommandSender sender) throws CommandException {
+	Player p = (Player) sender;
+	if (args.argsLength() < 1) {
+	    sender.sendMessage(ChatColor.RED + "Correct usage: /worldtp <WorldName>");
+	} else {
+	    if (Bukkit.getWorld(args.getString(0)) != null) {
+		p.teleport(Bukkit.getWorld(args.getString(0)).getSpawnLocation());
+	    }
+	}
+    }
+
+    @Command(aliases = {"worldsetspawn"}, 
+	    usage = "/worldsetspawn",
+	    desc = "Sets spawn for a world.")
+    @CommandPermissions({"battleutils.unloadworld"})
+    public void worldsetspawn(CommandContext args, CommandSender sender) throws CommandException {
+	Player p = (Player) sender;
+	World world = p.getWorld();
+	world.setSpawnLocation((int) p.getLocation().getX(), (int) p.getLocation().getY(), (int) p.getLocation().getZ());
+	sender.sendMessage(ChatColor.AQUA + "Set spawn point for world '" + p.getWorld().getName() + "'");
+    }
+
 }
