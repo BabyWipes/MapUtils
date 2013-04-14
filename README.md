@@ -23,3 +23,10 @@ Examples:
 
 ### /worldsetspawn
 **Set the spawn point of the current world you're in. (From where you're standing)**
+
+### Compiling
+You must have Apache Maven installed to compile. (http://maven.apache.org)
+
+to compile use the following command:
+
+```mvn clean install```
