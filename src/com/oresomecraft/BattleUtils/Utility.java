@@ -3,11 +3,11 @@ package com.oresomecraft.BattleUtils;
 import java.lang.reflect.Field;
 import java.util.Map;
 
-import net.minecraft.server.v1_5_R2.MinecraftServer;
+import net.minecraft.server.v1_5_R3.MinecraftServer;
 
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_5_R2.CraftServer;
-import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_5_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_5_R3.CraftWorld;
 
 public class Utility {
 
