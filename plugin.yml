@@ -1,21 +1,20 @@
-name: BattleUtils
-main: com.oresomecraft.BattleUtils.BattleUtils
-version: 1.0
+name: MapUtils
+main: com.oresomecraft.BattleUtils.MapUtilson: 1.0
 commands:
    loadworld:
       description: Load or create a world
-      permission: BattleUtils.loadworld
+      permission: MapUtils.loadworld
       permission-message: You dont have to use this command!
    unloadworld:
       description: Unload a loaded world.
       usage: /<command> '<WorldName>'
-      permission: BattleUtils.inloadworld
+      permission: MapUtils.inloadworld
       permission-message: You dont have to use this command!
    worldtp:
       description: Teleport to a specified world.
-      permission: BattleUtils.worldtp
+      permission: MapUtils.worldtp
       permission-message: You dont have to use this command!
    worldsetspawn:
       description: Set the point point of a world.
-      permission: BattleUtils.worldsetspawn
+      permission: MapUtils.worldsetspawn
       permission-message: You dont have to use this command!

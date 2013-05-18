@@ -11,17 +11,17 @@ import org.bukkit.World;
  */
 
 public class NullChunkGenerator extends ChunkGenerator {
-    
+
     public byte[] generate(World world, Random random, int cx, int cz) {
-	return new byte[65536];
+        return new byte[65536];
     }
 
     @Override
     public Location getFixedSpawnLocation(World world, Random random) {
-	return new Location(world, 0, 64, 0);
+        return new Location(world, 0, 64, 0);
     }
 
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-	return new NullChunkGenerator();
+        return new NullChunkGenerator();
     }
 }
