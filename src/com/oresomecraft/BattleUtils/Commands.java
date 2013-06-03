@@ -76,7 +76,7 @@ public class Commands {
             }
 
             utility.forceUnloadWorld(world);
-            sender.sendMessage(ChatColor.AQUA + "Unloaed world '" + args.getString(0) + "'");
+            sender.sendMessage(ChatColor.AQUA + "Unloaded world '" + args.getString(0) + "'");
         }
 
     }
