@@ -62,9 +62,11 @@ public class MapUtils extends JavaPlugin implements Listener {
         }
     }
 
-    /**********************************************************************
+    /**
+     * *******************************************************************
      * Code to use for sk89q's command framework goes below this comment! *
-     **********************************************************************/
+     * ********************************************************************
+     */
 
     private CommandsManager<CommandSender> commands;
     private boolean opPermissions;

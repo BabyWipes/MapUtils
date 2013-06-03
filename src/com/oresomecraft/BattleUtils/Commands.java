@@ -1,9 +1,6 @@
 package com.oresomecraft.BattleUtils;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,6 +11,7 @@ public class Commands {
 
     MapUtils plugin;
     Utility utility;
+
     public Commands(MapUtils pl) {
         plugin = pl;
         utility = new Utility(plugin);
@@ -37,7 +35,7 @@ public class Commands {
                 sender.sendMessage(ChatColor.AQUA + "Created/loaded world '" + args.getString(0) + "' using the Nullterrain generator!");
                 sender.sendMessage(ChatColor.AQUA + "Warning: Make sure each time you load this world you lo�ad it with the -n flag!");
 
-            }	else if (args.hasFlag('e')) {
+            } else if (args.hasFlag('e')) {
                 plugin.getServer().createWorld(new WorldCreator(args.getString(0)).environment(Environment.THE_END));
                 sender.sendMessage(ChatColor.AQUA + "Created/loaded world '" + args.getString(0) + "'!");
 
@@ -75,7 +73,12 @@ public class Commands {
                 p.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
             }
 
+            for (Chunk c : world.getLoadedChunks()) {
+                c.unload();
+            }
+
             utility.forceUnloadWorld(world);
+
             sender.sendMessage(ChatColor.AQUA + "Unloaded world '" + args.getString(0) + "'");
         }
 

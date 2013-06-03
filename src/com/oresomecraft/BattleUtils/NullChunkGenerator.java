@@ -1,6 +1,7 @@
 package com.oresomecraft.BattleUtils;
 
 import java.util.Random;
+
 import org.bukkit.Location;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.World;

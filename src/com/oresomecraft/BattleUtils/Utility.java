@@ -12,6 +12,7 @@ import org.bukkit.craftbukkit.v1_5_R3.CraftWorld;
 public class Utility {
 
     static MapUtils plugin;
+
     public Utility(MapUtils pl) {
         plugin = pl;
     }
