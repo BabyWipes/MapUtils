@@ -77,9 +77,9 @@ public class Commands {
                 c.unload();
             }
 
-            utility.forceUnloadWorld(world);
+            Bukkit.unloadWorld(world, true);
 
-            sender.sendMessage(ChatColor.AQUA + "Unloaded world '" + args.getString(0) + "'");
+            sender.sendMessage(ChatColor.AQUA + "Attempted unloaded world '" + args.getString(0) + "'");
         }
 
     }
